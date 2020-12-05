@@ -145,7 +145,7 @@ If you use our code in your research or wish to refer to the baseline results, p
 ```bash
 @article{wang2020enhancing,
   title={Enhancing Unsupervised Video Representation Learning by Decoupling the Scene and the Motion},
-  author={Wang, Jinpeng and Gao, Yuting and Li, Ke and Jiang, Xinyang and Guo, Xiaowei and Ji, Rongrong and Sun, Xing},
+  author={Wang, Jinpeng and Gao, Yuting and Li, Ke and Hu, Jianguo and Jiang, Xinyang and Guo, Xiaowei and Ji, Rongrong and Sun, Xing},
   journal={AAAI},
   year={2021}
 }
