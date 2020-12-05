@@ -4,24 +4,21 @@ The source code for paper [Enhancing Unsupervised Video Representation Learning 
 
 __Datasets list and some visualizations/provided weights are preparing now.__
 
-## 1. Introduction
+## 1. Introduction (*scene-dominated* to *motion-dominated*)
 
 ![](figures/ppl.png)
-> We propose to decouple the scene and the motion (DSM) with two simple operations, so that the model attention towards the motion information is better paid. 
+> Video datasets are usually scene-dominated, We propose to decouple the scene and the motion (DSM) with two simple operations, so that the model attention towards the motion information is better paid. 
 
+The generated triplet is as below:
+![](figures/triplet_visualization.png)
 
 
 ###  What DSM learned?
 
 **With DSM pretrain, the model learn to focus on motion region (Not necessarily actor) powerful without one label available.**
 
-![](figures/example1.gif)
+![](figures/where_to_look.png)
 
-#### More Challenge Sample
-
-In some more challenge scenario, DSM still focus on significantlly motion region.
-
-![](figures/example2.gif)
 
 ## 2. Installation
 

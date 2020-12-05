@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2eb6a2c1-7162-4fbd-8884-6b3bc5eea7c1" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/figures/triplet_visualization.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/figures/where_to_look.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -16,8 +18,8 @@
         <entry file="file://$PROJECT_DIR$/readme.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="385">
-                <caret line="147" column="67" selection-start-line="147" selection-start-column="67" selection-end-line="147" selection-end-column="67" />
+              <first_editor relative-caret-position="344">
+                <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
               </first_editor>
               <second_editor />
             </state>
@@ -33,7 +35,7 @@
         <entry file="file://$PROJECT_DIR$/src/augment/warpping/grid_sample.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="210">
-              <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
+              <caret line="15" selection-start-line="15" selection-end-line="15" />
             </state>
           </provider>
         </entry>
@@ -83,7 +85,7 @@
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
               <first_editor relative-caret-position="195">
-                <caret line="13" column="61" lean-forward="true" selection-start-line="13" selection-start-column="61" selection-end-line="13" selection-end-column="61" />
+                <caret line="13" column="61" selection-start-line="13" selection-start-column="61" selection-end-line="13" selection-end-column="61" />
               </first_editor>
               <second_editor />
             </state>
@@ -140,6 +142,11 @@
             <path>
               <item name="amax_DSM_release" type="b2602c69:ProjectViewProjectNode" />
               <item name="amax_DSM_release" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="amax_DSM_release" type="b2602c69:ProjectViewProjectNode" />
+              <item name="amax_DSM_release" type="462c0819:PsiDirectoryNode" />
+              <item name="figures" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="amax_DSM_release" type="b2602c69:ProjectViewProjectNode" />
@@ -211,12 +218,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1607170880560</updated>
-      <workItem from="1607170882542" duration="7056000" />
+      <workItem from="1607170882542" duration="7385000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7056000" />
+    <option name="totallyTimeSpent" value="7385000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-13" y="25" width="1920" height="970" extended-state="0" />
@@ -526,7 +533,7 @@
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="195">
-            <caret line="13" column="61" lean-forward="true" selection-start-line="13" selection-start-column="61" selection-end-line="13" selection-end-column="61" />
+            <caret line="13" column="61" selection-start-line="13" selection-start-column="61" selection-end-line="13" selection-end-column="61" />
           </first_editor>
           <second_editor />
         </state>
@@ -543,15 +550,18 @@
     <entry file="file://$PROJECT_DIR$/src/augment/warpping/grid_sample.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
-          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
+          <caret line="15" selection-start-line="15" selection-end-line="15" />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/figures/triplet_visualization.png">
+      <provider selected="true" editor-type-id="images" />
     </entry>
     <entry file="file://$PROJECT_DIR$/readme.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="385">
-            <caret line="147" column="67" selection-start-line="147" selection-start-column="67" selection-end-line="147" selection-end-column="67" />
+          <first_editor relative-caret-position="344">
+            <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
           </first_editor>
           <second_editor />
         </state>
