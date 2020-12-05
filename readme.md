@@ -1,6 +1,6 @@
 # DSM
 
-The source code for our paper "Enhancing Unsupervised Video Representation Learning by Decoupling the Scene and the Motion"
+The source code for paper [Enhancing Unsupervised Video Representation Learning by Decoupling the Scene and the Motion](https://arxiv.org/pdf/2009.05757.pdf)
 
 __Datasets list and some visualizations/provided weights are preparing now.__
 
@@ -25,14 +25,6 @@ In some more challenge scenario, DSM still focus on significantlly motion region
 
 ## 2. Installation
 
-### Download Datasets lists.
-```bash
-mkdir datasets
-wget -c []
-mkdir experiments && cd experiments
-mkdir logs
-```
-
 ### Dataset
 
 Please refer dataset.md for details.
@@ -52,21 +44,21 @@ Please refer dataset.md for details.
         - diving48: the train/val lists of diving48
 - experiments
     - logs: experiments record in detials
-    - gradientes: 
-    - visualization
+    - gradientes:  grad check
+    - visualization:
 - src
     - data: load data
     - loss: the loss evaluate in this paper
     - model: network architectures
     - scripts: train/eval scripts
-    - TC: detail implementation of Spatio-temporal Augmentation
+    - augment: detail implementation of Spatio-temporal Augmentation
     - utils
     - feature_extract.py: feature extractor given pretrained model
     - main.py: the main function of finetune
     - trainer.py
     - option.py
-    - train_dsm_contrastive.py: DSM train
-    - train_dsm_triplet.py: DSM(triplet) train
+    - pt.py: self-supervised pretrain
+    - ft.py: supervised finetune
 
 
 
@@ -78,7 +70,7 @@ bash scripts/kinetics/pt.sh
 ```
 ##### UCF101
 ```bash
-bash scripts/ucf101pt.sh
+bash scripts/ucf101/pt.sh
 ```
 #### Supervised Finetune
 ##### HMDB51
@@ -143,6 +135,8 @@ python reterival.py
 
 ## Acknowledgement
 This work is partly based on [STN](), [InfoNCE]() and [MoCo]().
+
+## License
 
 ## Citation
 
