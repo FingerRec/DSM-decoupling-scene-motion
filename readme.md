@@ -69,7 +69,7 @@ bash scripts/kinetics/pt.sh
 ```bash
 bash scripts/ucf101/pt.sh
 ```
-#### Supervised Finetune
+#### Supervised Finetune (Clip-level)
 ##### HMDB51
 ```bash
 bash scripts/hmdb51/ft.sh
@@ -82,6 +82,12 @@ bash scripts/ucf101/ft.sh
 ```bash
 bash scripts/kinetics/ft.sh
 ```
+
+#### Video-level Evaluation
+Following common practice [TSN](https://github.com/yjxiong/temporal-segment-networks) and [Non-local](https://github.com/facebookresearch/video-nonlocal-net).
+The final video-level result is average by 10 temporal window sampling + corner crop, which lead to better result than clip-level.
+Refer test.py for details.
+
 
 #### Pretrain And Eval In one step
 ```bash
@@ -131,7 +137,7 @@ python reterival.py
 ## More Visualization
 
 ## Acknowledgement
-This work is partly based on [STN](), [InfoNCE]() and [MoCo]().
+This work is partly based on [STN](https://arxiv.org/abs/1506.02025), [UEL](https://github.com/mangye16/Unsupervised_Embedding_Learning) and [MoCo](https://github.com/facebookresearch/moco).
 
 ## License
 
