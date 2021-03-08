@@ -252,49 +252,49 @@ class RandomRotation(object):
         return rotated
 
 
-class CenterCrop(object):
-    """Extract center crop at the same location for a list of images
-    Args:
-    size (sequence or int): Desired output size for the
-    crop in format (h, w)
-    """
-
-    def __init__(self, size):
-        if isinstance(size, numbers.Number):
-            size = (size, size)
-
-        self.size = size
-
-    def __call__(self, clip):
-        """
-        Args:
-        img (PIL.Image or numpy.ndarray): List of images to be cropped
-        in format (h, w, c) in numpy.ndarray
-        Returns:
-        PIL.Image or numpy.ndarray: Cropped list of images
-        """
-        h, w = self.size
-        if isinstance(clip[0], np.ndarray):
-            im_h, im_w, im_c = clip[0].shape
-        elif isinstance(clip[0], PIL.Image.Image):
-            im_w, im_h = clip[0].size
-        else:
-            raise TypeError('Expected numpy.ndarray or PIL.Image' +
-                            'but got list of {0}'.format(type(clip[0])))
-        if w > im_w or h > im_h:
-            error_msg = (
-                'Initial image size should be larger then '
-                'cropped size but got cropped sizes : ({w}, {h}) while '
-                'initial image is ({im_w}, {im_h})'.format(
-                    im_w=im_w, im_h=im_h, w=w, h=h))
-            raise ValueError(error_msg)
-
-        x1 = int(round((im_w - w) / 2.))
-        y1 = int(round((im_h - h) / 2.))
-        cropped = F.crop_clip(clip, y1, x1, h, w)
-
-        return cropped
-
+# class CenterCrop(object):
+#     """Extract center crop at the same location for a list of images
+#     Args:
+#     size (sequence or int): Desired output size for the
+#     crop in format (h, w)
+#     """
+#
+#     def __init__(self, size):
+#         if isinstance(size, numbers.Number):
+#             size = (size, size)
+#
+#         self.size = size
+#
+#     def __call__(self, clip):
+#         """
+#         Args:
+#         img (PIL.Image or numpy.ndarray): List of images to be cropped
+#         in format (h, w, c) in numpy.ndarray
+#         Returns:
+#         PIL.Image or numpy.ndarray: Cropped list of images
+#         """
+#         h, w = self.size
+#         if isinstance(clip[0], np.ndarray):
+#             im_h, im_w, im_c = clip[0].shape
+#         elif isinstance(clip[0], PIL.Image.Image):
+#             im_w, im_h = clip[0].size
+#         else:
+#             raise TypeError('Expected numpy.ndarray or PIL.Image' +
+#                             'but got list of {0}'.format(type(clip[0])))
+#         if w > im_w or h > im_h:
+#             error_msg = (
+#                 'Initial image size should be larger then '
+#                 'cropped size but got cropped sizes : ({w}, {h}) while '
+#                 'initial image is ({im_w}, {im_h})'.format(
+#                     im_w=im_w, im_h=im_h, w=w, h=h))
+#             raise ValueError(error_msg)
+#
+#         x1 = int(round((im_w - w) / 2.))
+#         y1 = int(round((im_h - h) / 2.))
+#         cropped = F.crop_clip(clip, y1, x1, h, w)
+#
+#         return cropped
+#
 
 class ColorJitter(object):
     """Randomly change the brightness, contrast and saturation and hue of the clip
@@ -408,8 +408,6 @@ class Normalize(object):
         return self.__class__.__name__ + '(mean={0}, std={1})'.format(self.mean, self.std)
 
 
-
-
 def transform_data(data, scale_size=256, crop_size=224, random_crop=False, random_flip=False):
     data = resize(data, scale_size)
     width = data[0].size[0]
@@ -434,30 +432,30 @@ def transform_data(data, scale_size=256, crop_size=224, random_crop=False, rando
     return  data
 
 
-def get_10_crop(data, scale_size=256, crop_size=224):
-    data = resize(data, scale_size)
-    width = data[0].size[0]
-    height = data[0].size[1]
-    top_left = [[0, 0],
-                [width-crop_size, 0],
-                [int((width-crop_size)/2), int((height-crop_size)/2)],
-                [0, height-crop_size],
-                [width-crop_size, height-crop_size]]
-    crop_data = []
-    for point in top_left:
-        non_flip = []
-        flip = []
-        x_0 = point[0]
-        y_0 = point[1]
-        x_1 = x_0 + crop_size
-        y_1 = y_0 + crop_size
-        for img in data:
-            tmp = img.crop((x_0, y_0, x_1, y_1))
-            non_flip.append(tmp)
-            flip.append(ImageOps.mirror(tmp))
-        crop_data.append(non_flip)
-        crop_data.append(flip)
-    return  crop_data
+# def get_10_crop(data, scale_size=256, crop_size=224):
+#     data = resize(data, scale_size)
+#     width = data[0].size[0]
+#     height = data[0].size[1]
+#     top_left = [[0, 0],
+#                 [width-crop_size, 0],
+#                 [int((width-crop_size)/2), int((height-crop_size)/2)],
+#                 [0, height-crop_size],
+#                 [width-crop_size, height-crop_size]]
+#     crop_data = []
+#     for point in top_left:
+#         non_flip = []
+#         flip = []
+#         x_0 = point[0]
+#         y_0 = point[1]
+#         x_1 = x_0 + crop_size
+#         y_1 = y_0 + crop_size
+#         for img in data:
+#             tmp = img.crop((x_0, y_0, x_1, y_1))
+#             non_flip.append(tmp)
+#             flip.append(ImageOps.mirror(tmp))
+#         crop_data.append(non_flip)
+#         crop_data.append(flip)
+#     return  crop_data
 
 
 def scale(data, scale_size):
@@ -483,7 +481,7 @@ def resize(data, scale_size):
         return data
     for i, image in enumerate(data):
         data[i] = image.resize((scale_size, scale_size))
-    return  data
+    return data
 
 
 def video_frames_resize(data, scale_size):

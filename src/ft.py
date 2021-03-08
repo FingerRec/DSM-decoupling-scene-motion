@@ -80,20 +80,18 @@ def train(args, tc, train_loader, model, criterion, optimizer, epoch, recorder, 
     for i, (input, target, index) in enumerate(train_loader):
         data_time.update(time.time() - end)
         target = target.cuda()
-        index = index.cuda()
         inputs = tc(input)
         target = torch.autograd.Variable(target)
         output = model(inputs)
-        loss = criterion(output, target) # + mse_loss
+        loss = criterion(output, target)
+        # # gradient check
+        # plot_grad_flow(model.module.base_model.named_parameters())
         prec1, prec3 = accuracy(output.data, target, topk=(1, 3))
         losses.update(loss.data.item(), input.size(0))
         top1.update(prec1.item(), input.size(0))
         top3.update(prec3.item(), input.size(0))
-
         optimizer.zero_grad()
         loss.backward()
-        # # gradient check
-        # plot_grad_flow(model.module.base_model.named_parameters())
         optimizer.step()
         batch_time.update(time.time() - end)
         end = time.time()
@@ -123,18 +121,16 @@ def validate(args, tc, val_loader, model, criterion, recorder, MoCo_init=False):
     end = time.time()
     with torch.no_grad():
         for i, (input, target, index) in enumerate(val_loader):
-            target = target.cuda()
             inputs = tc(input)
+            target = target.cuda()
             target = torch.autograd.Variable(target)
             output = model(inputs)
             loss = criterion(output, target)
             prec1, prec3 = accuracy(output.data, target, topk=(1, 3))
-            losses.update(loss.data.item(), input.size(0))
-            top1.update(prec1.item(), input.size(0))
             top3.update(prec3.item(), input.size(0))
+            top1.update(prec1.item(), input.size(0))
+            losses.update(loss.data.item(), input.size(0))
             batch_time.update(time.time() - end)
-            end = time.time()
-
             if i % args.ft_print_freq == 0:
                 message = ('Test: [{0}/{1}]\t'
                        'Time {batch_time.val:.3f} ({batch_time.avg:.3f})\t'
@@ -146,5 +142,6 @@ def validate(args, tc, val_loader, model, criterion, recorder, MoCo_init=False):
                 message = "Finetune Eval: Top1:{} Top3:{}".format(top1.avg, top3.avg)
                 print(message)
                 recorder.record_message('a', message)
+            end = time.time()
     return top1.avg, losses.avg
 

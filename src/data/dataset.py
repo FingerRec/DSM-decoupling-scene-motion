@@ -69,14 +69,14 @@ class DataSet(data.Dataset):
             #     img = img.resize((int(128 / height * width), 128), Image.BILINEAR)
             return [img]
         elif self.modality == 'flow':
-            if self.dataset == 'hmdb51':
-                directory = "/data/home/awinywang/Data/ft_local/hmdb51/tvl1_flow/{}/" + \
-                            directory.strip().split(' ')[0].split('/')[-1]
-            elif self.dataset == 'ucf101':
-                directory = "/data/home/awinywang/Data/ft_local/ucf101/tvl1_flow/{}/" + \
-                            directory.strip().split(' ')[0].split('/')[-1]
-            else:
-                Exception("wrong dataset!")
+            # if self.dataset == 'hmdb51':
+            #     directory = "/data/home/awinywang/Data/ft_local/hmdb51/tvl1_flow/{}/" + \
+            #                 directory.strip().split(' ')[0].split('/')[-1]
+            # elif self.dataset == 'ucf101':
+            #     directory = "/data/home/awinywang/Data/ft_local/ucf101/tvl1_flow/{}/" + \
+            #                 directory.strip().split(' ')[0].split('/')[-1]
+            # else:
+            #     Exception("wrong dataset!")
             u_img_path = directory.format('u') + '/frame' + str(idx).zfill(6) + '.jpg'
             v_img_path = directory.format('v') + '/frame' + str(idx).zfill(6) + '.jpg'
             x_img = Image.open(u_img_path).convert('L')
@@ -85,12 +85,12 @@ class DataSet(data.Dataset):
 
     def _load_gen_image(self, directory, idx, prob=1):
         directory = self.root_path + directory
-        if self.dataset == 'hmdb51':
-            directory = "/data1/awinywang/hmdb51/jpegs_256/" + directory.strip().split(' ')[0].split('/')[-1]
-        elif self.dataset == 'ucf101':
-            directory = "/data1/awinywang/ucf101/jpegs_256/" + directory.strip().split(' ')[0].split('/')[-1]
-        else:
-            Exception("wrong dataset!")
+        # if self.dataset == 'hmdb51':
+        #     directory = "/data1/awinywang/hmdb51/jpegs_256/" + directory.strip().split(' ')[0].split('/')[-1]
+        # elif self.dataset == 'ucf101':
+        #     directory = "/data1/awinywang/ucf101/jpegs_256/" + directory.strip().split(' ')[0].split('/')[-1]
+        # else:
+        #     Exception("wrong dataset!")
         rgb_img = cv2.imread(os.path.join(directory, self.image_tmpl.format(idx)))
         if self.dataset == 'ucf101':
             u_img_path = directory + '/frame' + str(idx).zfill(6) + '.jpg'
@@ -138,6 +138,7 @@ class DataSet(data.Dataset):
         else:
             u_img_path = os.path.join(directory, self.image_tmpl.format('flow_x', idx))
             v_img_path = os.path.join(directory, self.image_tmpl.format('flow_y', idx))
+        spatial_warp_img = rgb_img.copy()
         x_img = cv2.imread(u_img_path)
         y_img = cv2.imread(v_img_path)
         flow = np.zeros((x_img.shape[0], x_img.shape[1], 2), dtype=np.float32)
@@ -146,11 +147,10 @@ class DataSet(data.Dataset):
         # prob = max(1, np.random.random()*40)
         prob = max(0.01, np.random.random() * 5)
         temporal_wrap_img = warp_flow(rgb_img, (flow / 255 - 1) * prob)
-        spatial_warp_img = rgb_img.copy()
         # spatial_warp_img = spatial_warp(rgb_img, spatial_warp_points)
         rgb_img = Image.fromarray(np.uint8(rgb_img))
-        temporal_wrap_img = Image.fromarray(np.uint8(temporal_wrap_img))
         spatial_warp_img = Image.fromarray(np.uint8(spatial_warp_img))
+        temporal_wrap_img = Image.fromarray(np.uint8(temporal_wrap_img))
         return [rgb_img], [temporal_wrap_img], [spatial_warp_img]
 
     def _parse_list(self):
@@ -407,18 +407,18 @@ class DataSet(data.Dataset):
 
     def get_flow_items_2(self, index):
         record = self.video_list[index]  # video name?
-        if not self.test_mode:
-            segment_indices = self._sample_indices(record)
-        else:
+        if self.test_mode:
             segment_indices = self._get_test_indices(record, new_length=self.new_length)
-        thresh = 2
-        if not self.test_mode:
-            negative_segment_indices = self._sample_indices(record)
         else:
+            segment_indices = self._sample_indices(record)
+        thresh = 3
+        if self.test_mode:
             negative_segment_indices = self._get_test_indices(record, new_length=self.new_length)
+        else:
+            negative_segment_indices = self._sample_indices(record)
         if abs(negative_segment_indices - segment_indices) < thresh:
             negative_segment_indices = (negative_segment_indices + record.num_frames // 3) % record.num_frames
-        if negative_segment_indices == 0:
+        if negative_segment_indices is 0:
             negative_segment_indices += 1
         anchor_data, temporal_wrap_data, spatial_wrap_data, label = self.get_flow_2(record, segment_indices, new_length=self.new_length)
         negative_data, label = self.get(record, negative_segment_indices, new_length=self.new_length)

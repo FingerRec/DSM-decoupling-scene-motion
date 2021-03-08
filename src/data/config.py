@@ -78,14 +78,14 @@ def pt_augmentation_config(args):
     ])
     test_transforms = transforms.Compose([
                                         video_transform.Resize(resize_size),
-                                        video_transform.CenterCrop(int(args.pt_spatial_size)),
+                                        video_transform.RandomCrop(int(args.pt_spatial_size)),
                                          ClipToTensor(channel_nb=3 if args.pt_mode == 'rgb' else 2),
                                          normalize
     ]
                                          )
     eval_transfroms = transforms.Compose([
                                             video_transform.Resize(resize_size),
-                                            video_transform.CenterCrop(int(args.pt_spatial_size)),
+                                            video_transform.RandomCrop(int(args.pt_spatial_size)),
                                          ClipToTensor(channel_nb=3 if args.pt_mode == 'rgb' else 2),
                                          normalize
     ]

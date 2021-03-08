@@ -133,20 +133,12 @@ def train_moco(epoch, train_loader, model, model_ema, contrast, criterion, optim
     one epoch training for instance discrimination
     """
     print("==> (MoCo) training...")
-    model.train()
     model_ema.eval()
-
-    def set_bn_train(m):
-        classname = m.__class__.__name__
-        if classname.find('BatchNorm') != -1:
-            m.train()
-
-    model_ema.apply(set_bn_train)
-
-    batch_time = AverageMeter()
-    data_time = AverageMeter()
+    model.train()
     loss_meter = AverageMeter()
     prob_meter = AverageMeter()
+    batch_time = AverageMeter()
+    data_time = AverageMeter()
 
     end = time.time()
     for idx, (inputs, _, index) in enumerate(train_loader):
@@ -154,35 +146,23 @@ def train_moco(epoch, train_loader, model, model_ema, contrast, criterion, optim
         # print(inputs[0].size())
         bsz = inputs[0].size(0)
         # fixed args.batch_size
+        for i in range(len(inputs)):
+            inputs[i] = inputs[i].float()
+            inputs[i] = inputs[i].cuda()
         if bsz < opt.pt_batch_size:
             print("batch less than 16, continue")
             continue
-        inputs[0] = inputs[0].float()
-        inputs[1] = inputs[1].float()
-        inputs[2] = inputs[2].float()
-        inputs[0] = inputs[0].cuda()
-        inputs[1] = inputs[1].cuda()
-        inputs[2] = inputs[2].cuda()
         index = index.cuda(non_blocking=True)
-
         # ===================forward=====================
         anchor, positive, negative = inputs
-
-        # here a series of data augmentation
-        # ====================================================postive operation=======================
-        shuffle_ids, reverse_ids = get_shuffle_ids(bsz)
+        feat_n, _ = model(negative)
         feat_q, _ = model(anchor)
         feat_k, _ = model_ema(positive)
-        # with torch.no_grad():
-        #     positive = positive[shuffle_ids]
-        #     feat_k = model_ema(positive)
-        #     feat_k = feat_k[reverse_ids]
-        feat_n, _ = model(negative)
+        if feat_k.size(0) > feat_n.size(0):
+            print("wrong bsz")
         out = contrast(feat_q, feat_k, feat_n, index)
-        contrast_loss = criterion(out)
-        loss = contrast_loss
         prob = out[:, 0].mean()
-
+        loss = criterion(out)
         # ===================backward=====================
         optimizer.zero_grad()
         loss.backward()
@@ -191,12 +171,9 @@ def train_moco(epoch, train_loader, model, model_ema, contrast, criterion, optim
         # ===================meters=====================
         loss_meter.update(loss.item(), bsz)
         prob_meter.update(prob.item(), bsz)
-
         moment_update(model, model_ema, opt.pt_alpha)
-
         torch.cuda.synchronize()
         batch_time.update(time.time() - end)
-        end = time.time()
         message = ('MoCo Train: [{0}][{1}/{2}]\t'
                    'BT {batch_time.val:.3f} ({batch_time.avg:.3f})\t'
                    'DT {data_time.val:.3f} ({data_time.avg:.3f})\t'
@@ -210,6 +187,7 @@ def train_moco(epoch, train_loader, model, model_ema, contrast, criterion, optim
             recorder.record_message('a', message)
             # print(out.shape)
             sys.stdout.flush()
+        end = time.time()
     return loss_meter.avg, prob_meter.avg
 
 
@@ -247,9 +225,11 @@ def train_dsm_triplet(epoch, train_loader, model, optimizer, opt, pos_aug, neg_a
         # here a series of data augmentation
         # ====================================================postive operation=======================
         anchor = pos_aug(anchor_old)
-        feat_q = model(anchor)
         feat_k = model(positive)
         feat_n = model(negative)
+        feat_q = model(anchor)
+        if feat_k.size(0) > feat_q.size(0):
+            print("wrong bsz")
         intra_loss = triplet_loss(feat_q, feat_k, feat_n)
         inter_loss = triplet_loss(feat_q, feat_k, flip(feat_n, 0))
         # for j in range(bsz-2):
@@ -312,12 +292,9 @@ def train_dsm(epoch, train_loader, model, model_ema, contrast, criterion, optimi
         if bsz < opt.pt_batch_size:
             print("batch less than 16, continue")
             continue
-        inputs[0] = inputs[0].float()
-        inputs[1] = inputs[1].float()
-        inputs[2] = inputs[2].float()
-        inputs[0] = inputs[0].cuda()
-        inputs[1] = inputs[1].cuda()
-        inputs[2] = inputs[2].cuda()
+        for i in range(len(inputs)):
+            inputs[i] = inputs[i].float()
+            inputs[i] = inputs[i].cuda()
         index = index.cuda(non_blocking=True)
 
         # ===================forward=====================
@@ -336,23 +313,22 @@ def train_dsm(epoch, train_loader, model, model_ema, contrast, criterion, optimi
         #     feat_k = model_ema(positive)
         #     feat_k = feat_k[reverse_ids]
         feat_n, _ = model(negative)
+        if feat_n.size(0) > feat_q.size(0):
+            print("wrong bsz")
         out = contrast(feat_q, feat_k, feat_n, index)
         contrast_loss = criterion(out)
         loss = contrast_loss # + tcr_loss  # + sample_loss # + contrast_loss2 # + cls_loss + mixup_loss
         # print(contrast_loss, tcr_loss)
-        prob = out[:, 0].mean()
 
         # ===================backward=====================
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
-
         # ===================meters=====================
-        loss_meter.update(loss.item(), bsz)
+        prob = out[:, 0].mean()
         prob_meter.update(prob.item(), bsz)
-
+        loss_meter.update(loss.item(), bsz)
         moment_update(model, model_ema, opt.pt_alpha)
-
         torch.cuda.synchronize()
         batch_time.update(time.time() - end)
         end = time.time()

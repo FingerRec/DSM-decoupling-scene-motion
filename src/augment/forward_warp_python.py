@@ -66,6 +66,7 @@ class Forward_Warp_Python:
                         p = im0[b, :, h, w]
                         if nw[0] >= 0 and se[0] < W and nw[1] >= 0 and se[1] < H:
                             nw_k = (se[0]-x)*(se[1]-y)
+                            nw_k += 0.000001
                             ne_k = (x-sw[0])*(sw[1]-y)
                             sw_k = (ne[0]-x)*(y-ne[1])
                             se_k = (x-nw[0])*(y-nw[1])
