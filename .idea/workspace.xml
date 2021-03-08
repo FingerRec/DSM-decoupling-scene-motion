@@ -2,16 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2eb6a2c1-7162-4fbd-8884-6b3bc5eea7c1" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/augment/basic_augmentation/rotation.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/augment/forward_warp_python.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/augment/forward_warp_python.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/augment/video_transformations/video_transform_PIL_or_np.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/augment/video_transformations/video_transform_PIL_or_np.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/data/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/data/dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/dataset.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ft.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/ft.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/s3d.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pt.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -25,8 +16,8 @@
         <entry file="file://$PROJECT_DIR$/readme.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="431">
-                <caret line="154" column="3" lean-forward="true" selection-start-line="154" selection-start-column="3" selection-end-line="154" selection-end-column="3" />
+              <first_editor relative-caret-position="60">
+                <caret line="4" column="78" selection-start-line="4" selection-start-column="78" selection-end-line="4" selection-end-column="78" />
               </first_editor>
               <second_editor />
             </state>
@@ -71,7 +62,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="y" value="25" />
+    <option name="x" value="463" />
+    <option name="y" value="31" />
     <option name="width" value="1920" />
     <option name="height" value="970" />
   </component>
@@ -142,18 +134,18 @@
       <workItem from="1607170882542" duration="8915000" />
       <workItem from="1607226963707" duration="1944000" />
       <workItem from="1607262716758" duration="2869000" />
-      <workItem from="1615186378933" duration="116000" />
+      <workItem from="1615186378933" duration="701000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="13844000" />
+    <option name="totallyTimeSpent" value="14429000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="25" width="1920" height="970" extended-state="0" />
+    <frame x="463" y="31" width="1920" height="970" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20181043" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20181043" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -165,9 +157,9 @@
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" />
-      <window_info anchor="bottom" id="File Transfer" order="9" visible="true" weight="0.32912844" />
+      <window_info anchor="bottom" id="File Transfer" order="9" weight="0.32912844" />
       <window_info anchor="bottom" id="Database Changes" order="10" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.48738533" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.33830276" />
       <window_info anchor="bottom" id="Event Log" order="12" side_tool="true" />
       <window_info anchor="bottom" id="Python Console" order="13" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -494,8 +486,8 @@
     <entry file="file://$PROJECT_DIR$/readme.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="431">
-            <caret line="154" column="3" lean-forward="true" selection-start-line="154" selection-start-column="3" selection-end-line="154" selection-end-column="3" />
+          <first_editor relative-caret-position="60">
+            <caret line="4" column="78" selection-start-line="4" selection-start-column="78" selection-end-line="4" selection-end-column="78" />
           </first_editor>
           <second_editor />
         </state>
