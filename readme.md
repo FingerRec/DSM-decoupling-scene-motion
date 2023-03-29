@@ -148,10 +148,13 @@ This work is partly based on [STN](https://arxiv.org/abs/1506.02025), [UEL](http
 If you use our code in your research or wish to refer to the baseline results, pleasuse use the followint BibTex entry.
 
 ```bash
-@inproceedings{wang2020enhancing,
-  author    = {Lin, Ji and Zhang, Richard and Ganz, Frieder and Han, Song and Zhu, Jun-Yan},
-  title     = {Enhancing Unsupervised Video Representation Learning by Decoupling the Scene and the Motion},
-  booktitle = {AAAI},
-  year      = {2021},
+@inproceedings{wang2021enhancing,
+  title={Enhancing unsupervised video representation learning by decoupling the scene and the motion},
+  author={Wang, Jinpeng and Gao, Yuting and Li, Ke and Hu, Jianguo and Jiang, Xinyang and Guo, Xiaowei and Ji, Rongrong and Sun, Xing},
+  booktitle={Proceedings of the AAAI Conference on Artificial Intelligence},
+  volume={35},
+  number={11},
+  pages={10129--10137},
+  year={2021}
 }
 ```
